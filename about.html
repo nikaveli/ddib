@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About — Denver Dry Ice Blasters</title>
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .about-hero{
+    padding: 140px 0 80px;
+    position: relative;
+    border-bottom: 1px solid var(--abyss-rule);
+    overflow: hidden;
+  }
+  .about-hero .grid{
+    display:grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: end;
+  }
+  @media (max-width: 980px){ .about-hero .grid{ grid-template-columns: 1fr; } }
+  .about-hero h1{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(48px, 8vw, 130px);
+    line-height: 1.0;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin: 16px 0 32px;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+  .about-hero h1 .cyan{ color: var(--cyan); }
+  .about-hero h1 .stroke{ -webkit-text-stroke: 2px var(--glacial); color: transparent; }
+  .about-hero .lede{ color: var(--muted); font-size: 18px; max-width: 560px; line-height: 1.6; margin: 0; }
+  .about-hero .mascot{
+    position: relative;
+    width: 100%;
+    filter: drop-shadow(0 30px 60px rgba(0,212,255,0.25));
+  }
+
+  /* Story */
+  section.story{ padding: 140px 0; }
+  .story-grid{
+    display:grid; grid-template-columns: 1fr 1.4fr; gap: 80px;
+    align-items: start;
+  }
+  @media (max-width: 980px){ .story-grid{ grid-template-columns: 1fr; gap: 40px; } }
+  .story h2{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(56px, 8vw, 110px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .story h2 .cyan{ color: var(--cyan); }
+  .story-copy{ font-size: 17px; line-height: 1.7; color: var(--muted); }
+  .story-copy p{ margin: 0 0 24px; }
+  .story-copy p.lead{ color: var(--glacial); font-size: 20px; font-weight: 500; }
+  .story-copy strong{ color: var(--glacial); font-weight: 700; }
+
+  .pull-quote{
+    border-left: 2px solid var(--cyan);
+    padding: 0 0 0 32px;
+    margin: 40px 0;
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.0;
+    text-transform: uppercase;
+    color: var(--glacial);
+  }
+  .pull-quote .cyan{ color: var(--cyan); }
+
+  /* Values / Difference */
+  section.values{ padding: 120px 0; border-top: 1px solid var(--abyss-rule); border-bottom: 1px solid var(--abyss-rule); background: var(--abyss); }
+  .values-grid{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap: 4px;
+  }
+  @media (max-width: 760px){ .values-grid{ grid-template-columns: 1fr; } }
+  .val{
+    padding: 48px 40px;
+    border-radius: 24px;
+    border: 1px solid var(--abyss-rule);
+    background: var(--abyss);
+    position: relative;
+    overflow: hidden;
+    min-height: 280px;
+    display:flex; flex-direction: column; justify-content: space-between;
+  }
+  .val.cyan{ background: var(--cyan); color: var(--abyss); border-color: var(--cyan); }
+  .val.glacial{ background: var(--glacial); color: var(--abyss); border-color: var(--glacial); }
+  .val.slate{ background: var(--surface); color: var(--glacial); border-color: var(--surface); }
+  .val .num{
+    font-family: var(--mono);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .val h3{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin: 32px 0 16px;
+    letter-spacing: 0;
+  }
+  .val p{ margin: 0; font-size: 15px; line-height: 1.55; }
+  .val .num.bright{ color: var(--cyan); opacity: 1; }
+
+  /* Stats strip */
+  section.numbers{ padding: 120px 0; }
+  .num-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+  }
+  @media (max-width: 760px){ .num-grid{ grid-template-columns: 1fr 1fr; gap: 4px; } }
+  .num-cell{
+    padding: 48px 36px;
+    border: 1px solid var(--abyss-rule);
+    border-radius: 20px;
+    display:flex; flex-direction: column; justify-content: space-between;
+    min-height: 200px;
+  }
+  .num-cell .big{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(56px, 7vw, 110px);
+    line-height: 1.05;
+    color: var(--cyan);
+    letter-spacing: 0;
+  }
+  .num-cell .lbl{
+    font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--meta); margin-top: 18px;
+  }
+
+  /* Service area strip */
+  section.local{
+    padding: 140px 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(0,212,255,0.08), transparent 50%),
+      var(--abyss);
+    border-top: 1px solid var(--abyss-rule);
+    border-bottom: 1px solid var(--abyss-rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .local-grid{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  @media (max-width: 980px){ .local-grid{ grid-template-columns: 1fr; gap: 40px; } }
+  .local h2{
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1.05;
+    text-transform: uppercase; margin: 16px 0 24px;
+    letter-spacing: 0;
+  }
+  .local h2 .cyan{ color: var(--cyan); }
+  .local p{ color: var(--muted); font-size: 17px; line-height: 1.6; margin: 0 0 24px; max-width: 480px; }
+
+  .neighborhoods{
+    display:grid; grid-template-columns: 1fr; gap: 1px;
+    background: var(--abyss-rule);
+    border: 1px solid var(--abyss-rule);
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  .neighborhoods > div{
+    padding: 22px 28px;
+    background: var(--abyss);
+    display:flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  .neighborhoods > div:hover{ background: var(--cyan); color: var(--abyss); }
+  .neighborhoods > div .name{ font-weight: 700; }
+  .neighborhoods > div .dist{ opacity: 0.6; }
+  .neighborhoods > div:hover .dist{ opacity: 1; }
+
+  /* CTA */
+  section.about-cta{ padding: 140px 0; }
+  .about-cta h2{
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(48px, 8vw, 130px);
+    line-height: 1.05;
+    text-transform: uppercase; letter-spacing: 0;
+    margin: 0 0 32px;
+  }
+  .about-cta h2 .cyan{ color: var(--cyan); }
+</style>
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+    <header class="nav-shell">
+    <div class="nav" id="nav">
+      <div class="nav-left">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/logo.png" alt="Denver Dry Ice Blasters" />
+          <span>Denver Dry Ice<span class="nb-sub">Blasters / EST. 2024</span></span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+      <nav>
+        <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html" class="active">About</a></li><li><a href="contact.html">Contact</a></li></ul>
+      </nav>
+      <a class="nav-cta" href="contact.html" data-magnetic>Free Estimate →</a>
+      <div class="nav-mobile">
+        <ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html" class="active">About</a></li><li><a href="contact.html">Contact</a></li></ul>
+        <a class="nav-cta" href="contact.html" style="display:inline-block;">Free Estimate →</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="about-hero" data-screen-label="01 About Hero">
+      <div class="particles" data-particles="35"></div>
+      <div class="wrap">
+        <div class="grid">
+          <div>
+            <div class="eyebrow reveal" data-anim="fade-up">// About / Denver, CO</div>
+            <h1 class="reveal" data-split="chars">Keeping the<br/><span class="cyan">Front Range</span><br/><span class="stroke">Food Scene</span> Moving.</h1>
+            <p class="lede reveal" data-split="lines">A locally owned, locally operated team built to handle the toughest grime in commercial kitchens, food trucks, and commissary operations across the Denver Metro.</p>
+          </div>
+          <div data-parallax="0.15">
+            <img class="mascot" src="assets/ice-blaster-man.png" alt="Ice Blaster" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>Local Crew</span>
+        <span class="dot"></span>
+        <span class="ghost">Food-Grade</span>
+        <span class="dot"></span>
+        <span>Fast Turnaround</span>
+        <span class="dot"></span>
+        <span class="ghost">Inspector-Ready</span>
+        <span class="dot"></span>
+        <span>Built In Denver</span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <section class="story" data-screen-label="02 Story">
+      <div class="wrap">
+        <div class="story-grid">
+          <div>
+            <div class="eyebrow" data-anim="fade-up">// Our Story</div>
+            <h2 data-anim="head-chars" class="reveal">A Better<br/>Way to <span class="cyan">Clean.</span></h2>
+          </div>
+          <div class="story-copy">
+            <p class="lead" data-anim="fade-up">Running a commercial kitchen or a food truck is hard enough without having to shut down operations just to scrape off months of baked-on grease.</p>
+            <p data-anim="fade-up">At Denver Dry Ice Blasters, we saw a massive problem in the local food and beverage industry: traditional deep cleaning methods were costing owners too much time, too much labor, and too much lost revenue. Scrubbing equipment by hand is exhausting, and using toxic degreasers near food prep areas is a constant liability.</p>
+            <p data-anim="fade-up">We knew there had to be a better way to tackle the toughest grime without grinding business to a halt. That's why we brought industrial-grade dry ice blasting to Denver's commercial kitchens and mobile food vendors.</p>
+
+            <div class="pull-quote" data-anim="head-chars">"We eliminate the <span class="cyan">mess</span> so you can focus on the food."</div>
+
+            <p data-anim="fade-up">We have massive respect for the hustle of restaurant owners, food truck operators, and commissary managers. You operate in high-pressure environments where health inspections, equipment breakdowns, and labor shortages can make or break a week.</p>
+            <p data-anim="fade-up">We don't just see ourselves as a cleaning crew — we're your <strong>operational partners</strong>. We step in to handle the heavy lifting, stripping away years of carbon, grease, and buildup in a fraction of the time it takes to do it by hand.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUMBERS -->
+    <section class="numbers" data-screen-label="03 Numbers">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-anim="fade-up">// By the Numbers</div>
+            <h2 data-anim="head-chars" class="reveal display" style="font-size: clamp(48px,7vw,90px);">Cold Hard<br/>Facts.</h2>
+          </div>
+        </div>
+        <div class="num-grid" data-anim="stagger">
+          <div class="num-cell">
+            <div class="big">−<span data-count="109">0</span>°F</div>
+            <div class="lbl">Blast Temp</div>
+          </div>
+          <div class="num-cell">
+            <div class="big"><span data-count="800">0</span>×</div>
+            <div class="lbl">Volume Expansion</div>
+          </div>
+          <div class="num-cell">
+            <div class="big">ZERO</div>
+            <div class="lbl">Wastewater</div>
+          </div>
+          <div class="num-cell">
+            <div class="big"><span data-count="100">0</span>%</div>
+            <div class="lbl">FDA Approved</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="values" data-screen-label="04 Difference">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-anim="fade-up">// The Difference</div>
+            <h2 data-anim="head-chars" class="reveal display" style="font-size: clamp(48px,7vw,90px);">What We<br/>Stand For.</h2>
+          </div>
+          <p data-anim="fade-up">When you hire us, you get a team that respects your time and your equipment. Here's what that looks like.</p>
+        </div>
+
+        <div class="values-grid" data-anim="stagger">
+          <div class="val cyan tile-hover">
+            <div class="num">01 / Speed</div>
+            <div>
+              <h3>Speed &amp; Efficiency.</h3>
+              <p>Downtime equals lost money. We work quickly, cleaning equipment in place without requiring massive teardowns. Most jobs finish before service resumes.</p>
+            </div>
+          </div>
+          <div class="val tile-hover">
+            <div class="num bright">02 / Safety</div>
+            <div>
+              <h3>Safety First.</h3>
+              <p>We exclusively use FDA, EPA, and USDA-approved food-grade CO₂. No toxic chemicals, no wastewater, and no dangerous residues left behind.</p>
+            </div>
+          </div>
+          <div class="val slate tile-hover">
+            <div class="num bright">03 / Local</div>
+            <div>
+              <h3>Local Reliability.</h3>
+              <p>Locally owned and operated right here in Colorado. When you call us, you get a dedicated local team ready to show up at your restaurant or food truck lot anywhere in the Denver Metro area.</p>
+            </div>
+          </div>
+          <div class="val glacial tile-hover">
+            <div class="num">04 / Straight</div>
+            <div>
+              <h3>No Gimmicks.</h3>
+              <p>No hidden fees. We look at your equipment, tell you exactly what it takes to clean it, and get the job done right the first time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCAL -->
+    <section class="local" data-screen-label="05 Local">
+      <div class="particles" data-particles="20"></div>
+      <div class="wrap">
+        <div class="local-grid">
+          <div>
+            <div class="eyebrow" data-anim="fade-up">// Proudly Local</div>
+            <h2 data-anim="head-chars" class="reveal">Serving the<br/>Local <span class="cyan">Grind.</span></h2>
+            <p data-anim="fade-up">From the bustling food truck rallies in RiNo to the established, high-volume commercial kitchens in Aurora and Lakewood — we're proud to serve the people who feed Colorado.</p>
+            <p data-anim="fade-up">We know what it takes to keep a kitchen running at peak performance, and we have the technology to make it happen.</p>
+          </div>
+          <div class="neighborhoods" data-anim="stagger">
+            <div><span class="name">Denver / RiNo</span><span class="dist">— 5 mi</span></div>
+            <div><span class="name">Lakewood</span><span class="dist">— 9 mi</span></div>
+            <div><span class="name">Aurora</span><span class="dist">— 12 mi</span></div>
+            <div><span class="name">Arvada</span><span class="dist">— 11 mi</span></div>
+            <div><span class="name">Littleton</span><span class="dist">— 14 mi</span></div>
+            <div><span class="name">Centennial</span><span class="dist">— 16 mi</span></div>
+            <div><span class="name">Westminster</span><span class="dist">— 13 mi</span></div>
+            <div><span class="name">Englewood</span><span class="dist">— 8 mi</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="about-cta" data-screen-label="06 CTA">
+      <div class="wrap">
+        <div class="eyebrow" data-anim="fade-up">// Let's Get to Work</div>
+        <h2 data-anim="head-chars" class="reveal">Your Kitchen<br/>Is the <span class="cyan">Engine.</span></h2>
+        <p data-anim="fade-up" style="color: var(--muted); font-size: 18px; max-width: 540px; margin: 0 0 36px;">Let us help you keep it clean, compliant, and ready for the next rush.</p>
+        <div data-anim="fade-up" style="display:flex; gap: 14px; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="contact.html" data-magnetic>Free On-Site Estimate <span class="arrow">→</span></a>
+          <a class="btn btn-outline" href="services.html">See Services</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="nav-brand" style="margin-bottom: 20px;">
+            <img src="assets/logo.png" alt="Denver Dry Ice Blasters" style="height:52px;"/>
+          </div>
+          <p style="color: var(--muted); font-size: 14px; max-width: 320px; line-height: 1.6; margin: 0;">
+            Industrial-grade dry ice blasting for the Front Range food service industry. We eliminate the mess so you can focus on the food.
+          </p>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Cooking Line</a></li>
+            <li><a href="services.html">Food Trucks</a></li>
+            <li><a href="services.html">Hoods &amp; Ducts</a></li>
+            <li><a href="services.html">Walk-ins</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+13032420136">303-242-0136</a></li>
+            <li><a href="mailto:denver.dryice.blasters@gmail.com">denver.dryice.blasters<br/>@gmail.com</a></li>
+            <li><a href="#">Denver Metro, CO</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 Denver Dry Ice Blasters</div>
+        <div>FDA · EPA · USDA Compliant</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type@0.3.4/umd/index.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

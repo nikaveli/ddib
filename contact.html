@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Denver Dry Ice Blasters</title>
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .contact-hero{
+    padding: 140px 0 60px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--abyss-rule);
+  }
+  .contact-hero h1{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(52px, 10vw, 170px);
+    line-height: 1.0;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin: 16px 0 0;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+  .contact-hero h1 .cyan{ color: var(--cyan); }
+  .contact-hero h1 .stroke{ -webkit-text-stroke: 2px var(--glacial); color: transparent; }
+  .contact-hero .lede{
+    color: var(--muted);
+    font-size: 18px;
+    max-width: 540px;
+    margin: 32px 0 0;
+    line-height: 1.6;
+  }
+
+  /* Main form layout */
+  section.contact-main{ padding: 100px 0; }
+  .c-grid{
+    display:grid; grid-template-columns: 1.2fr 1fr; gap: 60px;
+    align-items: start;
+  }
+  @media (max-width: 980px){ .c-grid{ grid-template-columns: 1fr; gap: 32px; } }
+
+  /* Form */
+  .form-card{
+    border-radius: 24px;
+    border: 1px solid var(--abyss-rule);
+    background: var(--abyss);
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 760px){ .form-card{ padding: 32px 24px; } }
+  .form-card h2{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+  .form-card h2 .cyan{ color: var(--cyan); }
+  .form-card .sub{
+    color: var(--muted); font-size: 15px; margin: 0 0 32px;
+  }
+
+  .field{ margin-bottom: 22px; position: relative; }
+  .field label{
+    display:block;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--meta);
+    margin-bottom: 10px;
+  }
+  .field input,
+  .field textarea,
+  .field select{
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--abyss-rule);
+    border-radius: 0;
+    color: var(--glacial);
+    font-family: var(--body);
+    font-size: 17px;
+    padding: 14px 0;
+    transition: border-color 200ms ease;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .field input::placeholder, .field textarea::placeholder{ color: var(--dim-slate); }
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus{ border-bottom-color: var(--cyan); }
+  .field textarea{ resize: vertical; min-height: 100px; }
+  .field select{
+    background-image: linear-gradient(45deg, transparent 50%, var(--cyan) 50%), linear-gradient(135deg, var(--cyan) 50%, transparent 50%);
+    background-position: calc(100% - 16px) 22px, calc(100% - 10px) 22px;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 32px;
+  }
+  .field select option{ background: var(--abyss); color: var(--glacial); }
+
+  .field-row{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  @media (max-width: 600px){ .field-row{ grid-template-columns: 1fr; gap: 0; } }
+
+  /* Pill selector */
+  .pill-group{ display:flex; flex-wrap: wrap; gap: 8px; }
+  .pill-group input{ display: none; }
+  .pill-group label{
+    display:inline-flex;
+    align-items: center;
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: 1px solid var(--slate);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 0;
+    transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .pill-group input:checked + label{
+    background: var(--cyan); color: var(--abyss); border-color: var(--cyan);
+  }
+  .pill-group label:hover{ border-color: var(--cyan); color: var(--glacial); }
+
+  .form-submit{
+    display:flex; align-items:center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--abyss-rule);
+  }
+  .form-submit .note{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--meta);
+  }
+
+  /* Sidebar */
+  .side{
+    display:flex; flex-direction: column; gap: 20px;
+  }
+  .side-card{
+    border-radius: 24px;
+    padding: 32px;
+    border: 1px solid var(--abyss-rule);
+    background: var(--abyss);
+    position: relative;
+    overflow: hidden;
+  }
+  .side-card.cyan{ background: var(--cyan); color: var(--abyss); border-color: var(--cyan); }
+  .side-card.slate{ background: var(--surface); }
+  .side-card .lbl{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--cyan); margin-bottom: 14px;
+  }
+  .side-card.cyan .lbl{ color: var(--abyss); opacity: 0.7; }
+  .side-card .big{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(32px, 3.5vw, 44px);
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin: 0 0 8px;
+    word-break: break-word;
+  }
+  .side-card .sub{
+    color: var(--muted); font-size: 14px; margin: 0;
+  }
+  .side-card.cyan .sub{ color: var(--abyss); opacity: 0.7; }
+
+  /* Hours table */
+  .hours{
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .hours li{
+    display:flex; justify-content: space-between; align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--abyss-rule);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .hours li:last-child{ border-bottom: none; }
+  .hours li.now{ color: var(--cyan); }
+  .hours li .day{ font-weight: 600; }
+  .hours li .time{ color: var(--meta); }
+  .hours li.now .time{ color: var(--cyan); }
+
+  /* FAQ */
+  section.faq{ padding: 100px 0; border-top: 1px solid var(--abyss-rule); }
+  .faq-list{
+    border-top: 1px solid var(--abyss-rule);
+  }
+  .faq-item{
+    border-bottom: 1px solid var(--abyss-rule);
+    padding: 28px 0;
+  }
+  .faq-q{
+    display:flex; justify-content: space-between; align-items: flex-start;
+    gap: 24px;
+    cursor: pointer;
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: var(--glacial);
+    transition: color 200ms ease;
+  }
+  .faq-q:hover{ color: var(--cyan); }
+  .faq-q .plus{
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    border: 1px solid var(--cyan);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: var(--cyan);
+    font-size: 18px;
+    transition: transform 300ms ease, background 300ms ease, color 300ms ease;
+    margin-top: 6px;
+  }
+  .faq-item.open .faq-q .plus{ transform: rotate(45deg); background: var(--cyan); color: var(--abyss); }
+  .faq-a{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 400ms ease;
+  }
+  .faq-a .inner{
+    padding: 20px 0 4px;
+    max-width: 720px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  section.c-cta{
+    padding: 140px 0;
+    border-top: 1px solid var(--abyss-rule);
+    background:
+      radial-gradient(circle at 80% 50%, rgba(0,212,255,0.10), transparent 50%),
+      var(--abyss);
+    position: relative;
+    overflow: hidden;
+  }
+  .c-cta h2{
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(48px, 9vw, 140px);
+    line-height: 1.05;
+    text-transform: uppercase; letter-spacing: 0;
+    margin: 0 0 32px;
+  }
+  .c-cta h2 .cyan{ color: var(--cyan); }
+
+  /* Success state */
+  .success{
+    display:none;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .success .ok{
+    width: 80px; height: 80px;
+    border: 2px solid var(--cyan);
+    border-radius: 50%;
+    display: inline-grid; place-items: center;
+    margin-bottom: 24px;
+    color: var(--cyan);
+    font-size: 36px;
+  }
+  .success h3{
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(32px, 4vw, 52px);
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+  .success p{ color: var(--muted); font-size: 16px; max-width: 360px; margin: 0 auto; }
+  .form-card.sent .form-grid{ display: none; }
+  .form-card.sent .success{ display: block; }
+</style>
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+    <header class="nav-shell">
+    <div class="nav" id="nav">
+      <div class="nav-left">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/logo.png" alt="Denver Dry Ice Blasters" />
+          <span>Denver Dry Ice<span class="nb-sub">Blasters / EST. 2024</span></span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+      <nav>
+        <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html" class="active">Contact</a></li></ul>
+      </nav>
+      <a class="nav-cta" href="contact.html" data-magnetic>Free Estimate →</a>
+      <div class="nav-mobile">
+        <ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html" class="active">Contact</a></li></ul>
+        <a class="nav-cta" href="contact.html" style="display:inline-block;">Free Estimate →</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="contact-hero" data-screen-label="01 Contact Hero">
+      <div class="particles" data-particles="35"></div>
+      <div class="wrap">
+        <div class="eyebrow reveal" data-anim="fade-up">// Contact / Denver Metro</div>
+        <h1 class="reveal" data-split="chars">Let's <span class="cyan">Blast.</span><br/><span class="stroke">Talk Soon.</span></h1>
+        <p class="lede reveal" data-split="lines">Tell us about your kitchen. We'll respond within one business day with a free on-site walk-through and a clear, no-surprises estimate.</p>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>Free Estimates</span>
+        <span class="dot"></span>
+        <span class="ghost">24-Hr Response</span>
+        <span class="dot"></span>
+        <span>No Hidden Fees</span>
+        <span class="dot"></span>
+        <span class="ghost">Locally Owned</span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <section class="contact-main" id="form" data-screen-label="02 Form">
+      <div class="wrap">
+        <div class="c-grid">
+          <!-- FORM -->
+          <div class="form-card" data-anim="fade-up">
+            <h2>Request <span class="cyan">a Quote.</span></h2>
+            <p class="sub">Free, on-site, no obligation. We'll walk your space, talk through your equipment, and put a number to it.</p>
+
+            <form class="form-grid" id="quote-form" action="https://formsubmit.co/denver.dryice.blasters@gmail.com" method="POST" autocomplete="on" novalidate>
+              <!-- FormSubmit config -->
+              <input type="hidden" name="_subject" value="New Quote Request — Denver Dry Ice Blasters" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="https://denverdryiceblasters.com/contact.html?sent=1" />
+              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+              <div class="field-row">
+                <div class="field">
+                  <label for="fn">First Name</label>
+                  <input type="text" id="fn" name="firstName" placeholder="Jordan" required />
+                </div>
+                <div class="field">
+                  <label for="ln">Last Name</label>
+                  <input type="text" id="ln" name="lastName" placeholder="Reyes" required />
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="you@kitchen.com" required />
+                </div>
+                <div class="field">
+                  <label for="phone">Phone</label>
+                  <input type="tel" id="phone" name="phone" placeholder="303-242-0136" required />
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="biz">Business / Truck Name</label>
+                  <input type="text" id="biz" name="business" placeholder="Mile High Mobile Kitchen" />
+                </div>
+                <div class="field">
+                  <label for="city">City</label>
+                  <select id="city" name="city">
+                    <option>Denver</option>
+                    <option>Lakewood</option>
+                    <option>Aurora</option>
+                    <option>Arvada</option>
+                    <option>Littleton</option>
+                    <option>Centennial</option>
+                    <option>Westminster</option>
+                    <option>Englewood</option>
+                    <option>Other (Front Range)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>What needs cleaning? (Select all that apply)</label>
+                <div class="pill-group">
+                  <input type="checkbox" id="p1" name="services" value="ovens" />
+                  <label for="p1">Ovens / Grills</label>
+                  <input type="checkbox" id="p2" name="services" value="hoods" />
+                  <label for="p2">Hoods / Vents</label>
+                  <input type="checkbox" id="p3" name="services" value="truck" />
+                  <label for="p3">Food Truck</label>
+                  <input type="checkbox" id="p4" name="services" value="walkin" />
+                  <label for="p4">Walk-In</label>
+                  <input type="checkbox" id="p5" name="services" value="prep" />
+                  <label for="p5">Mixers / Slicers</label>
+                  <input type="checkbox" id="p6" name="services" value="electrical" />
+                  <label for="p6">Electrical</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="timing">When do you need it done?</label>
+                <div class="pill-group">
+                  <input type="radio" id="t1" name="timing" value="asap" checked />
+                  <label for="t1">ASAP</label>
+                  <input type="radio" id="t2" name="timing" value="2weeks" />
+                  <label for="t2">Within 2 Weeks</label>
+                  <input type="radio" id="t3" name="timing" value="month" />
+                  <label for="t3">This Month</label>
+                  <input type="radio" id="t4" name="timing" value="planning" />
+                  <label for="t4">Just Planning</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="notes">Tell us about your situation</label>
+                <textarea id="notes" name="notes" placeholder="A few sentences about your space, equipment, and what's been giving you trouble..."></textarea>
+              </div>
+
+              <div class="form-submit">
+                <span class="note">// Response within 1 business day</span>
+                <button type="submit" class="btn btn-primary" data-magnetic>Send Request <span class="arrow">→</span></button>
+              </div>
+            </form>
+
+            <div class="success">
+              <div class="ok">✓</div>
+              <h3>Request Received.</h3>
+              <p>Thanks — we'll be in touch within one business day to schedule your on-site walk-through.</p>
+            </div>
+          </div>
+
+          <!-- SIDEBAR -->
+          <aside class="side">
+            <a class="side-card cyan tile-hover" href="tel:+13032420136" data-anim="fade-up">
+              <div class="lbl">// Call Direct</div>
+              <div class="big">303-242-<br/>0136</div>
+              <p class="sub">Talk to a real person. We answer the phone.</p>
+            </a>
+
+            <a class="side-card tile-hover" href="mailto:denver.dryice.blasters@gmail.com" data-anim="fade-up">
+              <div class="lbl">// Email</div>
+              <div class="big" style="font-size: clamp(20px, 2.4vw, 28px);">denver.<br/>dryice.<br/>blasters<br/>@gmail.com</div>
+              <p class="sub" style="margin-top: 16px;">For files, photos, or detailed RFQs.</p>
+            </a>
+
+            <div class="side-card slate" data-anim="fade-up">
+              <div class="lbl">// Hours of Operation</div>
+              <ul class="hours" id="hours">
+                <li data-day="0"><span class="day">Sun</span><span class="time">By Appointment</span></li>
+                <li data-day="1"><span class="day">Mon</span><span class="time">By Appointment</span></li>
+                <li data-day="2"><span class="day">Tue</span><span class="time">By Appointment</span></li>
+                <li data-day="3"><span class="day">Wed</span><span class="time">By Appointment</span></li>
+                <li data-day="4"><span class="day">Thu</span><span class="time">By Appointment</span></li>
+                <li data-day="5"><span class="day">Fri</span><span class="time">By Appointment</span></li>
+                <li data-day="6"><span class="day">Sat</span><span class="time">By Appointment</span></li>
+              </ul>
+            </div>
+
+            <div class="side-card" data-anim="fade-up">
+              <div class="lbl">// Service Area</div>
+              <div class="big" style="font-size: clamp(22px, 2.6vw, 30px); margin-bottom: 14px;">Denver Metro<br/>+ Front Range</div>
+              <p class="sub">Denver · Lakewood · Aurora · Arvada · Littleton · Centennial · Westminster · Englewood · Wheat Ridge</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" data-screen-label="03 FAQ">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-anim="fade-up">// Questions</div>
+            <h2 data-anim="head-chars" class="reveal display" style="font-size: clamp(48px,7vw,90px);">Common<br/>Questions.</h2>
+          </div>
+          <p data-anim="fade-up">Quick answers to what most kitchen owners ask before booking. If yours isn't here, just call us.</p>
+        </div>
+
+        <div class="faq-list" data-anim="stagger">
+          <div class="faq-item">
+            <div class="faq-q"><span>Is dry ice blasting actually safe around food?</span><span class="plus">+</span></div>
+            <div class="faq-a"><div class="inner">Yes — we use food-grade CO₂ pellets, which are FDA, EPA, and USDA approved for use around food contact surfaces. There's no chemical residue and no solvent to wipe down afterwards.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>Do I have to shut down my kitchen during cleaning?</span><span class="plus">+</span></div>
+            <div class="faq-a"><div class="inner">No teardown, no shutdown for most equipment. We clean in place. We can even clean walk-in coolers and freezers while they're running — the dry ice is colder than the unit itself.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>How long does a typical service take?</span><span class="plus">+</span></div>
+            <div class="faq-a"><div class="inner">Most single-line jobs (one oven + one hood) take 3–6 hours. A full food truck interior runs 2–4 hours. We schedule outside service hours so you don't lose revenue.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>What does it cost?</span><span class="plus">+</span></div>
+            <div class="faq-a"><div class="inner">Pricing depends on equipment count, condition, and access. That's why every quote starts with a free on-site walk-through — we look, then quote. No hidden fees, no surprise upcharges.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>Will the blast damage my equipment?</span><span class="plus">+</span></div>
+            <div class="faq-a"><div class="inner">Dry ice is soft media — it sublimates on impact and won't pit, scratch, or warp stainless steel, plastic, gaskets, or finishes. It's safer on substrates than wire brushes and degreasers.</div></div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q"><span>Do you provide documentation for health inspectors?</span><span class="plus">+</span></div>
+            <div class="faq-a"><div class="inner">Every service ends with a signed report and before/after photos of each piece of equipment we cleaned. Hand them straight to your inspector or fire marshal.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="c-cta" data-screen-label="04 CTA">
+      <div class="particles" data-particles="22"></div>
+      <div class="wrap">
+        <div class="eyebrow" data-anim="fade-up">// Ready to Reset</div>
+        <h2 data-anim="head-chars" class="reveal">Call. Email.<br/><span class="cyan">Or Just Show Up.</span></h2>
+        <p data-anim="fade-up" style="color: var(--muted); font-size: 18px; max-width: 540px; margin: 0 0 36px;">However you get in touch, we'll respond fast and show up faster.</p>
+        <div data-anim="fade-up" style="display:flex; gap: 14px; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="tel:+13032420136" data-magnetic>303-242-0136 <span class="arrow">→</span></a>
+          <a class="btn btn-outline" href="mailto:denver.dryice.blasters@gmail.com">Send Email</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="nav-brand" style="margin-bottom: 20px;">
+            <img src="assets/logo.png" alt="Denver Dry Ice Blasters" style="height:52px;"/>
+          </div>
+          <p style="color: var(--muted); font-size: 14px; max-width: 320px; line-height: 1.6; margin: 0;">
+            Industrial-grade dry ice blasting for the Front Range food service industry. We eliminate the mess so you can focus on the food.
+          </p>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Cooking Line</a></li>
+            <li><a href="services.html">Food Trucks</a></li>
+            <li><a href="services.html">Hoods &amp; Ducts</a></li>
+            <li><a href="services.html">Walk-ins</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+13032420136">303-242-0136</a></li>
+            <li><a href="mailto:denver.dryice.blasters@gmail.com">denver.dryice.blasters<br/>@gmail.com</a></li>
+            <li><a href="#">Denver Metro, CO</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 Denver Dry Ice Blasters</div>
+        <div>FDA · EPA · USDA Compliant</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type@0.3.4/umd/index.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Highlight today's hour row
+    const todayIdx = new Date().getDay();
+    document.querySelectorAll('#hours li').forEach(li=>{
+      if(parseInt(li.dataset.day,10) === todayIdx) li.classList.add('now');
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item=>{
+      const q = item.querySelector('.faq-q');
+      const a = item.querySelector('.faq-a');
+      q.addEventListener('click', ()=>{
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(o=>{
+          o.classList.remove('open');
+          o.querySelector('.faq-a').style.maxHeight = '0px';
+        });
+        if(!open){
+          item.classList.add('open');
+          a.style.maxHeight = a.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // Form submit — FormSubmit.co via AJAX
+    const form = document.getElementById('quote-form');
+    const card = form.closest('.form-card');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const successCard = card.querySelector('.success');
+    const successMsg = successCard.querySelector('p');
+
+    form.addEventListener('submit', async e=>{
+      e.preventDefault();
+      // Quick required check
+      let ok = true;
+      form.querySelectorAll('[required]').forEach(el=>{
+        if(!el.value.trim()){
+          ok = false;
+          el.style.borderBottomColor = '#4878A6';
+          el.addEventListener('input', ()=> el.style.borderBottomColor = '', { once: true });
+        }
+      });
+      if(!ok) return;
+
+      const originalBtn = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Sending… <span class="arrow">→</span>';
+
+      try{
+        const fd = new FormData(form);
+        const res = await fetch('https://formsubmit.co/ajax/denver.dryice.blasters@gmail.com', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: fd
+        });
+        const data = await res.json();
+        if(!res.ok || data.success === 'false'){
+          throw new Error(data.message || 'Submission failed');
+        }
+        // Animate to success
+        gsap.to(form, { opacity: 0, y: -10, duration: 0.4, onComplete: ()=>{
+          card.classList.add('sent');
+          gsap.fromTo(successCard, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' });
+        }});
+      } catch(err){
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtn;
+        alert('Sorry — there was a problem sending your request. Please call us at 303-242-0136 or email denver.dryice.blasters@gmail.com directly.');
+      }
+    });
+
+    // Handle ?sent=1 success state (if form submitted via non-AJAX fallback)
+    if(new URLSearchParams(location.search).get('sent') === '1'){
+      card.classList.add('sent');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — Denver Dry Ice Blasters</title>
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .page-hero{
+    padding: 140px 0 80px;
+    position: relative;
+    border-bottom: 1px solid var(--abyss-rule);
+    overflow: hidden;
+  }
+  .page-hero .eyebrow{ margin-bottom: 20px; }
+  .page-hero h1{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(52px, 9vw, 150px);
+    line-height: 1.0;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    margin: 0 0 30px;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+  .page-hero h1 .cyan{ color: var(--cyan); }
+  .page-hero .lede{
+    max-width: 640px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  /* Sticky table-of-contents + service detail layout */
+  section.services{ padding: 100px 0; }
+  .svc-layout{
+    display:grid;
+    grid-template-columns: 260px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  @media (max-width: 980px){ .svc-layout{ grid-template-columns: 1fr; gap: 40px; } }
+  .svc-toc{
+    position: sticky;
+    top: 110px;
+  }
+  .svc-toc h4{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; font-weight: 600;
+    text-transform: uppercase; color: var(--cyan);
+    margin: 0 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--abyss-rule);
+  }
+  .svc-toc ol{
+    list-style:none; padding:0; margin:0;
+    display:flex; flex-direction: column; gap: 14px;
+    counter-reset: svc;
+  }
+  .svc-toc a{
+    display:flex; align-items:baseline; gap: 12px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    transition: color 200ms ease;
+    counter-increment: svc;
+  }
+  .svc-toc a::before{
+    content: counter(svc, decimal-leading-zero);
+    color: var(--cyan);
+    font-weight: 700;
+  }
+  .svc-toc a:hover, .svc-toc a.active{ color: var(--glacial); }
+  .svc-toc a.active::before{ color: var(--cyan); }
+
+  .svc-list{ display:flex; flex-direction: column; gap: 24px; }
+  .svc{
+    border-radius: 24px;
+    padding: 48px;
+    border: 1px solid var(--abyss-rule);
+    background: var(--abyss);
+    position: relative;
+    overflow: hidden;
+  }
+  .svc.feature{ background: var(--surface); border-color: var(--surface); }
+  .svc.feature-cyan{ background: var(--cyan); color: var(--abyss); border-color: var(--cyan); }
+  .svc.feature-glacial{ background: var(--glacial); color: var(--abyss); border-color: var(--glacial); }
+
+  .svc-head{
+    display:flex; justify-content: space-between; align-items:flex-start;
+    gap: 32px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .svc-num{
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .svc h2{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin: 0;
+    max-width: 80%;
+  }
+  .svc .meta{
+    display:flex; gap: 8px; flex-wrap: wrap;
+  }
+  .svc-body{
+    display:grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 40px;
+  }
+  @media (max-width: 760px){ .svc-body{ grid-template-columns: 1fr; gap: 24px; } }
+  .svc-body p{ margin: 0 0 16px; font-size: 16px; line-height: 1.65; }
+  .svc-body p:last-child{ margin-bottom: 0; }
+
+  .svc-benefit{
+    border-radius: 16px;
+    background: rgba(7,16,27,0.3);
+    border: 1px solid currentColor;
+    padding: 24px;
+    position: relative;
+  }
+  .svc.feature .svc-benefit{ background: var(--abyss); border-color: var(--abyss-rule); }
+  .svc.feature-cyan .svc-benefit, .svc.feature-glacial .svc-benefit{
+    border-color: rgba(7,16,27,0.3);
+  }
+  .svc-benefit .lbl{
+    font-family: var(--mono);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 12px;
+  }
+  .svc.feature-cyan .svc-benefit .lbl, .svc.feature-glacial .svc-benefit .lbl{ color: var(--abyss); }
+  .svc-benefit p{
+    font-family: var(--body);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .svc-temp{
+    font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--meta);
+    display:flex; align-items:center; gap: 10px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px dashed currentColor;
+    opacity: 0.7;
+  }
+  .svc.feature-cyan .svc-temp, .svc.feature-glacial .svc-temp{ color: var(--abyss); }
+
+  /* Process flow */
+  section.process-flow{ padding: 120px 0; border-top: 1px solid var(--abyss-rule); border-bottom: 1px solid var(--abyss-rule); }
+  .flow{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+  @media (max-width: 760px){ .flow{ grid-template-columns: 1fr 1fr; } }
+  .flow > div{
+    padding: 40px 32px;
+    border: 1px solid var(--abyss-rule);
+    border-radius: 20px;
+    min-height: 280px;
+    display:flex; flex-direction: column; justify-content: space-between;
+    transition: background 300ms ease, transform 300ms ease;
+  }
+  .flow > div:hover{ background: var(--surface); }
+  .flow .step{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 88px;
+    line-height: 1.05;
+    color: var(--cyan);
+    letter-spacing: 0;
+  }
+  .flow h3{
+    font-family: var(--body);
+    font-size: 22px;
+    font-weight: 700;
+    margin: 16px 0 8px;
+    line-height: 1.1;
+  }
+  .flow p{ margin: 0; color: var(--muted); font-size: 14px; }
+
+  /* CTA */
+  section.svc-cta{ padding: 140px 0; }
+  .svc-cta h2{
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(48px, 8vw, 120px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin: 0 0 32px;
+  }
+  .svc-cta h2 .cyan{ color: var(--cyan); }
+</style>
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+    <header class="nav-shell">
+    <div class="nav" id="nav">
+      <div class="nav-left">
+        <a class="nav-brand" href="index.html">
+          <img src="assets/logo.png" alt="Denver Dry Ice Blasters" />
+          <span>Denver Dry Ice<span class="nb-sub">Blasters / EST. 2024</span></span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+      <nav>
+        <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="services.html" class="active">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul>
+      </nav>
+      <a class="nav-cta" href="contact.html" data-magnetic>Free Estimate →</a>
+      <div class="nav-mobile">
+        <ul><li><a href="index.html">Home</a></li><li><a href="services.html" class="active">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul>
+        <a class="nav-cta" href="contact.html" style="display:inline-block;">Free Estimate →</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="page-hero" data-screen-label="01 Services Hero">
+      <div class="particles" data-particles="35"></div>
+      <div class="wrap">
+        <div class="eyebrow reveal" data-anim="fade-up">// Services / 06 Lines</div>
+        <h1 class="reveal" data-split="chars">Cleaning<br/><span class="cyan">Power</span> Move.</h1>
+        <p class="lede reveal" data-split="lines">
+          In food service, downtime equals lost revenue. Traditional cleaning means harsh chemicals, hours of scrubbing, and dismantling expensive equipment. We eliminate all of that — 100% dry, chemical-free, FDA-approved deep cleans that get you back in business faster.
+        </p>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>Ovens</span>
+        <span class="dot"></span>
+        <span class="ghost">Hoods</span>
+        <span class="dot"></span>
+        <span>Fryers</span>
+        <span class="dot"></span>
+        <span class="ghost">Trucks</span>
+        <span class="dot"></span>
+        <span>Walk-Ins</span>
+        <span class="dot"></span>
+        <span class="ghost">Mixers</span>
+        <span class="dot"></span>
+        <span>Panels</span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section class="services" data-screen-label="02 Service Lines">
+      <div class="wrap">
+        <div class="svc-layout">
+          <aside class="svc-toc">
+            <h4>// Service Lines</h4>
+            <ol>
+              <li><a href="#s1">Ovens & Fryers</a></li>
+              <li><a href="#s2">Food Trucks</a></li>
+              <li><a href="#s3">Hoods & Vents</a></li>
+              <li><a href="#s4">Walk-Ins</a></li>
+              <li><a href="#s5">Prep & Mixers</a></li>
+              <li><a href="#s6">Electrical</a></li>
+            </ol>
+          </aside>
+
+          <div class="svc-list">
+            <article id="s1" class="svc tile-hover">
+              <div class="svc-head">
+                <div>
+                  <div class="svc-num">Service 01</div>
+                  <h2 data-anim="head-chars" class="reveal">Commercial Ovens, Grills &amp; Deep Fryers</h2>
+                </div>
+                <div class="meta">
+                  <span class="tag tag-cyan">Cooking Line</span>
+                  <span class="tag tag-outline">~ 3-6 HR</span>
+                </div>
+              </div>
+              <div class="svc-body" data-anim="fade-up">
+                <div>
+                  <p>Years of baked-on carbon, grease, and cooking oils ruin equipment efficiency and impact the flavor of your food. Scrubbing this by hand is labor-intensive and often ineffective.</p>
+                  <p>We use precision dry ice blasting to strip away thick layers of carbon and grease without warping metal grates or damaging delicate heating elements.</p>
+                </div>
+                <div class="svc-benefit">
+                  <div class="lbl">// The Benefit</div>
+                  <p>Restores equipment to peak heating efficiency, extends the lifespan of your cooking lines, and eliminates the need for toxic degreasers near food contact surfaces.</p>
+                </div>
+              </div>
+              <div class="svc-temp"><span>—109°F</span> · No teardown required · FDA-approved CO₂</div>
+            </article>
+
+            <article id="s2" class="svc feature-cyan tile-hover">
+              <div class="svc-head">
+                <div>
+                  <div class="svc-num">Service 02</div>
+                  <h2 data-anim="head-chars" class="reveal">Food Truck Deep Cleaning</h2>
+                </div>
+                <div class="meta">
+                  <span class="tag" style="background: var(--abyss); color: var(--cyan);">Mobile Rig</span>
+                  <span class="tag" style="border:1px solid rgba(7,16,27,0.4); color: var(--abyss);">~ 2-4 HR</span>
+                </div>
+              </div>
+              <div class="svc-body" data-anim="fade-up">
+                <div>
+                  <p>Food trucks pack massive cooking power into a tight footprint. Grease and airborne oils coat every surface — walls, ceilings, floors, equipment.</p>
+                  <p>We bring our mobile dry ice rigs directly to where you park. We blast the entire interior of your truck, hitting tight corners, behind fryers, and around electrical wiring where water and scrub brushes simply cannot safely reach.</p>
+                </div>
+                <div class="svc-benefit">
+                  <div class="lbl">// The Benefit</div>
+                  <p>Ultra-fast turnaround to keep you on the road. Easily pass strict mobile health inspections and maintain a spotless, odor-free cooking environment.</p>
+                </div>
+              </div>
+              <div class="svc-temp"><span>RiNo / Auraria / Civic Center</span> · On-location service · No bay required</div>
+            </article>
+
+            <article id="s3" class="svc tile-hover">
+              <div class="svc-head">
+                <div>
+                  <div class="svc-num">Service 03</div>
+                  <h2 data-anim="head-chars" class="reveal">Exhaust Hoods &amp; Ventilation Systems</h2>
+                </div>
+                <div class="meta">
+                  <span class="tag tag-slate">Fire Code</span>
+                  <span class="tag tag-outline">~ 4-8 HR</span>
+                </div>
+              </div>
+              <div class="svc-body" data-anim="fade-up">
+                <div>
+                  <p>A grease-choked exhaust hood is a massive fire hazard and a fast track to failing a fire marshal inspection. Traditional power washing creates a massive, contaminated water mess in your kitchen.</p>
+                  <p>Dry ice blasting strips heavy grease buildup inside the canopy, filters, and ductwork. Because the dry ice sublimates on impact, the only thing that falls is the hardened grease, which is easily swept up.</p>
+                </div>
+                <div class="svc-benefit">
+                  <div class="lbl">// The Benefit</div>
+                  <p>Ensures fire code compliance, drastically improves kitchen airflow, and creates zero wastewater runoff in your prep areas.</p>
+                </div>
+              </div>
+              <div class="svc-temp"><span>NFPA 96 compliant</span> · Photo-documented for inspectors</div>
+            </article>
+
+            <article id="s4" class="svc feature tile-hover">
+              <div class="svc-head">
+                <div>
+                  <div class="svc-num">Service 04</div>
+                  <h2 data-anim="head-chars" class="reveal">Walk-In Coolers &amp; Commercial Freezers</h2>
+                </div>
+                <div class="meta">
+                  <span class="tag tag-cyan">No Downtime</span>
+                  <span class="tag tag-outline">~ 2-5 HR</span>
+                </div>
+              </div>
+              <div class="svc-body" data-anim="fade-up">
+                <div>
+                  <p>Cleaning a walk-in usually requires emptying inventory, shutting down the unit, and waiting for it to thaw so you can mop up spills, mold, and mildew.</p>
+                  <p>Because dry ice is −109°F, we can clean your freezers and coolers <em style="color: var(--cyan); font-style: normal;">while they are still running</em>. We blast away frozen spills, bio-film, and grime from racking, walls, and condenser fans without introducing any water.</p>
+                </div>
+                <div class="svc-benefit">
+                  <div class="lbl">// The Benefit</div>
+                  <p>Zero risk of food spoilage, zero downtime for your refrigeration units, and complete removal of bacteria-harboring grime.</p>
+                </div>
+              </div>
+              <div class="svc-temp"><span>Stay-running clean</span> · Inventory in place · Compressor safe</div>
+            </article>
+
+            <article id="s5" class="svc feature-glacial tile-hover">
+              <div class="svc-head">
+                <div>
+                  <div class="svc-num">Service 05</div>
+                  <h2 data-anim="head-chars" class="reveal">Prep Stations, Slicers &amp; Mixers</h2>
+                </div>
+                <div class="meta">
+                  <span class="tag" style="background: var(--abyss); color: var(--cyan);">Precision</span>
+                  <span class="tag" style="border:1px solid rgba(7,16,27,0.4); color: var(--abyss);">~ 1-3 HR</span>
+                </div>
+              </div>
+              <div class="svc-body" data-anim="fade-up">
+                <div>
+                  <p>Dough mixers, meat slicers, and complex prep tables have gears, chains, and tiny crevices where flour, fat, and food particles get trapped and rot. Disassembling these machines to clean them takes hours.</p>
+                  <p>Dry ice easily penetrates these hard-to-reach gaps, instantly freezing and blasting away trapped food particles without damaging the moving parts or requiring a complete equipment teardown.</p>
+                </div>
+                <div class="svc-benefit">
+                  <div class="lbl">// The Benefit</div>
+                  <p>Protects against cross-contamination, keeps moving parts running smoothly, and drastically cuts down on end-of-shift labor.</p>
+                </div>
+              </div>
+              <div class="svc-temp"><span>No disassembly</span> · Gears, chains, electronics safe</div>
+            </article>
+
+            <article id="s6" class="svc tile-hover">
+              <div class="svc-head">
+                <div>
+                  <div class="svc-num">Service 06</div>
+                  <h2 data-anim="head-chars" class="reveal">Electrical &amp; Control Panels</h2>
+                </div>
+                <div class="meta">
+                  <span class="tag tag-cyan">Safe / Dry</span>
+                  <span class="tag tag-outline">~ 1-2 HR</span>
+                </div>
+              </div>
+              <div class="svc-body" data-anim="fade-up">
+                <div>
+                  <p>Modern commercial kitchens rely on digital displays, motorized drives, and complex electrical panels. You cannot hit these with a hose or a wet rag without risking a short circuit or electrocution.</p>
+                  <p>Dry ice is completely non-conductive and moisture-free. We safely blast dust, flour, and airborne grease off your sensitive electrical components, switches, and wiring harnesses.</p>
+                </div>
+                <div class="svc-benefit">
+                  <div class="lbl">// The Benefit</div>
+                  <p>Prevents electrical fires, stops equipment misfires due to dirty sensors, and allows for safe cleaning without removing power components.</p>
+                </div>
+              </div>
+              <div class="svc-temp"><span>Non-conductive media</span> · Live-circuit safe</div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS FLOW -->
+    <section class="process-flow" data-screen-label="03 How It Works">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-anim="fade-up">// How It Works</div>
+            <h2 data-anim="head-chars" class="reveal display" style="font-size: clamp(48px, 7vw, 90px);">The Four-Stage<br/>Blast Cycle.</h2>
+          </div>
+          <p data-anim="fade-up">Solid CO₂ pellets are accelerated through a high-pressure nozzle. On impact they sublimate — turning back into a gas — and lift contaminants off the surface in three simultaneous physical effects.</p>
+        </div>
+
+        <div class="flow" data-anim="stagger">
+          <div>
+            <div class="step">01</div>
+            <div>
+              <h3>Kinetic</h3>
+              <p>The pellets hit grease at supersonic speed, fracturing the surface bond like a sandblast — without abrading the substrate.</p>
+            </div>
+          </div>
+          <div>
+            <div class="step">02</div>
+            <div>
+              <h3>Thermal</h3>
+              <p>−109°F flash-freezes the contaminant, embrittling it so it shears cleanly away from the metal beneath.</p>
+            </div>
+          </div>
+          <div>
+            <div class="step">03</div>
+            <div>
+              <h3>Sublimation</h3>
+              <p>The pellets vaporize on contact — expanding 800× their volume. The pressure wave lifts everything out of pores and seams.</p>
+            </div>
+          </div>
+          <div>
+            <div class="step">04</div>
+            <div>
+              <h3>Sweep</h3>
+              <p>Only the contaminant is left on the floor. No solvent, no rinse water, no secondary waste stream.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="svc-cta" data-screen-label="04 CTA">
+      <div class="wrap">
+        <div class="eyebrow" data-anim="fade-up">// Ready to Reset</div>
+        <h2 data-anim="head-chars" class="reveal">Stop Wasting<br/>Labor Hours.<br/><span class="cyan">Let's Blast.</span></h2>
+        <p data-anim="fade-up" style="color: var(--muted); max-width: 500px; font-size: 18px; margin: 0 0 36px;">Let our team handle the heavy lifting so your crew can focus on the food.</p>
+        <div data-anim="fade-up" style="display:flex; gap: 14px; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="contact.html" data-magnetic>Free On-Site Estimate <span class="arrow">→</span></a>
+          <a class="btn btn-outline" href="about.html">About Our Team</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="nav-brand" style="margin-bottom: 20px;">
+            <img src="assets/logo.png" alt="Denver Dry Ice Blasters" style="height:52px;"/>
+          </div>
+          <p style="color: var(--muted); font-size: 14px; max-width: 320px; line-height: 1.6; margin: 0;">
+            Industrial-grade dry ice blasting for the Front Range food service industry. We eliminate the mess so you can focus on the food.
+          </p>
+        </div>
+        <div>
+          <h4>Site</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#s1">Cooking Line</a></li>
+            <li><a href="services.html#s2">Food Trucks</a></li>
+            <li><a href="services.html#s3">Hoods &amp; Ducts</a></li>
+            <li><a href="services.html#s4">Walk-ins</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+13032420136">303-242-0136</a></li>
+            <li><a href="mailto:denver.dryice.blasters@gmail.com">denver.dryice.blasters<br/>@gmail.com</a></li>
+            <li><a href="#">Denver Metro, CO</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 Denver Dry Ice Blasters</div>
+        <div>FDA · EPA · USDA Compliant</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type@0.3.4/umd/index.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // TOC scrollspy
+    const links = document.querySelectorAll('.svc-toc a');
+    const sections = [...links].map(a => document.querySelector(a.getAttribute('href')));
+    function spy(){
+      const y = window.scrollY + 200;
+      let active = 0;
+      sections.forEach((s,i)=>{ if(s && s.offsetTop <= y) active = i; });
+      links.forEach((l,i)=> l.classList.toggle('active', i===active));
+    }
+    window.addEventListener('scroll', spy);
+    spy();
+  </script>
+</body>
+</html>
