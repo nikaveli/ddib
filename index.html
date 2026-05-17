@@ -323,6 +323,84 @@
     max-width: 540px;
     margin: 0 0 40px;
   }
+
+  /* See It In Action */
+  section.promo{ padding: 120px 0; border-top: 1px solid var(--abyss-rule); }
+  .promo-frame{
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--abyss);
+    border: 1px solid var(--abyss-rule);
+    aspect-ratio: 16 / 9;
+    cursor: pointer;
+    box-shadow: 0 40px 80px -40px rgba(0,0,0,0.6);
+  }
+  .promo-frame video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .promo-overlay{
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(circle at center, rgba(0,212,255,0.12), transparent 55%),
+      linear-gradient(180deg, rgba(7,16,27,0.35) 0%, rgba(7,16,27,0.75) 100%);
+    transition: opacity 350ms ease;
+    z-index: 2;
+  }
+  .promo-frame.playing .promo-overlay{ opacity: 0; pointer-events: none; }
+  .promo-play{
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: var(--cyan);
+    color: var(--abyss);
+    display: grid; place-items: center;
+    border: none;
+    cursor: pointer;
+    box-shadow:
+      0 0 0 1px rgba(0,212,255,0.4),
+      0 0 40px rgba(0,212,255,0.55),
+      0 20px 60px -10px rgba(0,212,255,0.6);
+    transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  }
+  .promo-play:hover{
+    transform: scale(1.06);
+    background: var(--glacial);
+    box-shadow:
+      0 0 0 1px rgba(240,244,248,0.5),
+      0 0 60px rgba(0,212,255,0.75),
+      0 24px 80px -8px rgba(0,212,255,0.7);
+  }
+  .promo-play svg{ width: 32px; height: 32px; margin-left: 4px; }
+  .promo-eyebrow{
+    position: absolute;
+    top: 24px; left: 24px;
+    z-index: 3;
+    color: var(--cyan);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .promo-meta{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+    justify-content: center;
+  }
+  .promo-meta .tag{ font-size: 11px; padding: 8px 16px; }
+  @media (max-width: 760px){
+    section.promo{ padding: 80px 0; }
+    .promo-play{ width: 72px; height: 72px; }
+    .promo-play svg{ width: 24px; height: 24px; }
+  }
 </style>
 </head>
 <body>
@@ -462,8 +540,37 @@
       </div>
     </section>
 
+    <!-- SEE IT IN ACTION -->
+    <section class="promo" data-screen-label="03 Proof">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-anim="fade-up">// See It In Action</div>
+            <h2 data-anim="head-chars" class="reveal">Watch The<br/>Blast Work.</h2>
+          </div>
+          <p data-anim="fade-up">90 seconds of food-grade CO₂ pellets eating through baked-on grease — no chemicals, no scrubbing, no runoff.</p>
+        </div>
+
+        <div class="promo-frame" id="promoFrame" data-anim="fade-up">
+          <div class="promo-eyebrow">// FIELD FOOTAGE / DENVER METRO</div>
+          <video id="promoVideo" src="assets/promo1.mp4" preload="metadata" playsinline></video>
+          <div class="promo-overlay">
+            <button class="promo-play" id="promoPlay" aria-label="Play promo video" data-magnetic>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="promo-meta" data-anim="fade-up">
+          <span class="tag tag-cyan">Food-Safe CO₂</span>
+          <span class="tag tag-outline">Zero Wastewater</span>
+          <span class="tag tag-outline">No Teardown</span>
+        </div>
+      </div>
+    </section>
+
     <!-- PROCESS / TIMELINE -->
-    <section class="process" data-screen-label="03 Process">
+    <section class="process" data-screen-label="04 Process">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -520,7 +627,7 @@
     </section>
 
     <!-- SERVICES PREVIEW -->
-    <section class="services-preview" data-screen-label="04 Services">
+    <section class="services-preview" data-screen-label="05 Services">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -578,7 +685,7 @@
     </section>
 
     <!-- SERVICE AREA -->
-    <section class="area" data-screen-label="05 Area">
+    <section class="area" data-screen-label="06 Area">
       <div class="wrap">
         <div class="area-grid">
           <div>
@@ -624,7 +731,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="cta-blast" data-screen-label="06 CTA">
+    <section class="cta-blast" data-screen-label="07 CTA">
       <div class="particles" data-particles="30"></div>
       <div class="wrap">
         <div class="eyebrow" data-anim="fade-up">// Ready When You Are</div>
@@ -688,5 +795,29 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/split-type@0.3.4/umd/index.min.js"></script>
   <script src="app.js"></script>
+  <script>
+    // Promo video: cyan play overlay, click frame to toggle pause/play
+    (function(){
+      const frame = document.getElementById('promoFrame');
+      const video = document.getElementById('promoVideo');
+      const play  = document.getElementById('promoPlay');
+      if(!frame || !video || !play) return;
+
+      function start(){
+        frame.classList.add('playing');
+        video.controls = true;
+        video.play();
+      }
+      function toggle(){
+        if(video.paused) video.play();
+        else video.pause();
+      }
+
+      play.addEventListener('click', e => { e.stopPropagation(); start(); });
+      video.addEventListener('click', e => { e.stopPropagation(); if(frame.classList.contains('playing')) toggle(); });
+      frame.addEventListener('click', () => { if(!frame.classList.contains('playing')) start(); });
+      video.addEventListener('ended', () => frame.classList.remove('playing'));
+    })();
+  </script>
 </body>
 </html>
